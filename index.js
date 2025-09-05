@@ -60,7 +60,7 @@ msf.connect()
   .then((lines) => {
     const chosen = lines.sort(() => 0.5 - Math.random()).slice(0, length);
     if (process.env['DEBUG']) {
-      console.log(`Chosen Exploits: ${chosen.join(', ')}`);
+      console.log(`Chosen Exploits: \n${chosen.join(', \n')}\n`);
     }
     const exploitType = 'exploit';
     const j = JZZ()
