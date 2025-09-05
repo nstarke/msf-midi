@@ -81,11 +81,11 @@ msf.connect()
 
           // Check if it's a Note On (0x90–0x9F) and velocity > 0
           if ((status & 0xf0) === 0x90 && velocity > 0) {
-            if (process.env['DEBUG']) {
-              console.log(`Note On received: note=${note}, velocity=${velocity}, exploit=${exploitName}`);
-            }
-
             if (note === (idx + start)) {
+              if (process.env['DEBUG']) {
+                console.log(`Note On received: note=${note}, velocity=${velocity}, exploit=${exploitName}`);
+              }
+
               const opts = {
                 RHOSTS: args.targetHost,
                 RPORT: args.targetPort,
