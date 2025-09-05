@@ -18,19 +18,25 @@ const args = minimist(process.argv.slice(2), {
 //  string: ['device', 'targetHost', 'targetPort', 'useList']
 });
 
+if (!args.start || !args.length || !args.device || !args.targetHost || !args.targetPort) {
+  console.log('Usage: node index.js --start <MIDI note number> --length <number of exploits> --device "<MIDI device name>" --targetHost <target IP> --targetPort <target port> [--useList <file with list of exploits>]');
+  console.log('Example: node index.js --start 60 --length 10 --device "USB MIDI Interface MIDI 1" --targetHost $TARGET_HOST --targetPort 80');
+  process.exit(0);
+}
+
 const start = parseInt(args.start, 10);
 const length = parseInt(args.length, 10);
 const device = args.device;
 
 if (!info.inputs.map((i) => { return i.name; }).includes(device)) {
-  console.log(device);
-  console.log('specified midi in device not found, exiting');
+  console.log(`Specified midi in device (${device}) not found, exiting`);
   process.exit(0);
 }
 
 if (process.env['DEBUG']) {
   console.log('Connecting to msfrpcd');
 }
+
 msf.connect()
   .then(() => { 
     if (process.env['DEBUG']) {
@@ -41,7 +47,7 @@ msf.connect()
       if (process.env['DEBUG']) {
         console.log('Using exploit list from file: ', args.useList);
       }
-      return fs.readFile(args.useList, 'utf8').then(function(results) { return results.split('\n'); });
+      return fs.readFile(args.useList, 'utf8').then((results) => { return results.split('\n'); });
     } else {
       if (process.env['DEBUG']) {
         console.log('Generating exploit list');
@@ -49,7 +55,7 @@ msf.connect()
       return msf.module.search('type:exploit').then((results) => { return results.map((i) => { return i.fullname }); });
     }
   })
-  .then(function(lines) {
+  .then((lines) => {
     const chosen = lines.sort(() => 0.5 - Math.random()).slice(0, length);
     if (process.env['DEBUG']) {
       console.log('Chosen Exploits: ', chosen);
@@ -60,7 +66,7 @@ msf.connect()
       JZZ()
       .openMidiIn(device)
       .or('Cannot open MIDI In!')
-      .and(function () {
+      .and(() => {
         if (process.env['DEBUG']) {
           console.log('Listening for MIDI...');
         }

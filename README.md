@@ -22,3 +22,14 @@ sudo apt install alsa-utils
 * `--targetHost` - The host to run the random exploits against.
 * `--targetPort` - The port on the target host to run the random exploits against.
 * `--useList` - A file path to a list of exploits to use, if you only want to select from a predefined list of exploits.
+
+## Debug Mode
+To enable DEBUG mode, which provides verbose output logging, set a process environment variable for `DEBUG`.
+
+For example:
+```
+DEBUG=1 node index.js --start 60 --length 10 --device 'USB MIDI Device' --targetHost $TARGET_HOST --targetPort $TARGET_PORT
+```
+
+## Notes
+The port on the target host will need to be open for the traffic to actually go over the wire and thus create sound on the NSA Selector.
