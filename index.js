@@ -72,7 +72,7 @@ msf.connect()
         }
       });
       
-      j.connect(msg => {
+      j.connect((msg) => {
         chosen.forEach((value, idx) => {
           const exploitName = value;
           
@@ -87,7 +87,7 @@ msf.connect()
               }
 
               const opts = {
-                RHOSTS: args.targetHost,
+                RHOST: args.targetHost,
                 RPORT: args.targetPort,
               }
 

@@ -1,3 +1,7 @@
+# WARNING: This project didn't end up working because of how long it takes Metasploit to generate the exploit traffic to send over the wire.  It takes long enough that this can't really be used for musical applications.  As such, I am archiving this repo.
+
+Check out [https://github.com/nstarke/nsa-midi](https://github.com/nstarke/nsa-midi) instead!
+
 # MSF-MIDI
 This repository contains a NodeJS Command Line Application that maps MIDI Notes to randomly selected Metasploit Framework exploit modules and then executes those metasploit modules when the associated MIDI note is received from a MIDI device.
 
